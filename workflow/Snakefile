@@ -1,0 +1,16 @@
+SNAKEMAKE_DIR = os.path.dirname(workflow.snakefile)
+WORKING_DIR = os.getcwd()
+configfile: "config/config.yaml"
+
+
+include: "rules/common.smk"
+include: "rules/search.smk"
+include: "rules/score.smk"
+
+
+localrules: all, write_comet_params, combine_databases
+
+
+rule all:
+    input:
+        get_final_output()
